@@ -1,0 +1,17 @@
+name: Test Failure Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  intentional-failure:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print diagnostic message
+        run: echo "Starting failure test"
+
+      - name: Simulate application failure
+        run: |
+          echo "ERROR: Simulated application failure"
+          exit 1
