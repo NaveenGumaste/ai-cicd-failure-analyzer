@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: ai-cicd-postgres
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: cicd_admin
+      POSTGRES_PASSWORD: local_dev_password
+      POSTGRES_DB: cicd_analyzer
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cicd_admin -d cicd_analyzer"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
